@@ -1,10 +1,10 @@
 Neon Pink = 255,16,240
 Orchid = 218,112,214
 
-### <span style="color: rgb(218,112,214);">[TÍTULO]</span>
+### **[TÍTULO]**
 
-<span style="color: rgb(218,112,214);">**Descrição**</span>: [DESCRIÇÃO]
+**Descrição**: [DESCRIÇÃO]
 
-<span style="color: rgb(218,112,214);">**Regras**</span>:
-    - [REGRA1]
-    - [REGRA2]
+**Regras**:
+- [REGRA1]
+- [REGRA2]
