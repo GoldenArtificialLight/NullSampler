@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:nullsampler/src/app/null_sampler.dart';
+
 void main() {
-  print("Em construção");
+  runApp(NullSampler());
 }
