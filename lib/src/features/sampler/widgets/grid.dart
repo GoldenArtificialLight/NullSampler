@@ -7,29 +7,29 @@ class Grid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-        children: [
-            Row(
-                children: [
-                    Tile(),
-                    Tile(),
-                    Tile(),
-                ],
-            ),
-            Row(
-                children: [
-                    Tile(),
-                    Tile(),
-                    Tile(),
-                ],
-            ),
-            Row(
-                children: [
-                    Tile(),
-                    Tile(),
-                    Tile(),
-                ],
-            ),
-        ],
+      children: [
+        Row(
+          children: [
+            Tile(),
+            Tile(),
+            Tile(),
+          ],
+        ),
+        Row(
+          children: [
+            Tile(),
+            Tile(),
+            Tile(),
+          ],
+        ),
+        Row(
+          children: [
+            Tile(),
+            Tile(),
+            Tile(),
+          ],
+        ),
+      ],
     );
   }
 }
