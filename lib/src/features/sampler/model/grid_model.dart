@@ -1,5 +1,5 @@
 import 'package:nullsampler/src/features/sampler/model/sample_model.dart';
-import 'package:nullsampler/src/features/sampler/shared/enums.dart';
+import 'package:nullsampler/src/core/enums.dart';
 
 typedef Grid = Map<TilePosition, SampleModel?>;
 
