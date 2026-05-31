@@ -3,6 +3,7 @@ import 'package:nullsampler/src/core/enums.dart';
 
 typedef Grid = Map<TilePosition, SampleModel?>;
 
+// TODO: Revisar isso aqui
 class GridModel {
   Grid grid;
 
