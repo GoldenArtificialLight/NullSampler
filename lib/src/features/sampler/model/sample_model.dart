@@ -7,11 +7,7 @@ class SampleModel {
 
   SampleModel({this.id, required this.filename, this.bytes});
 
-  Map<String, dynamic> toMap()
-  {
-    return {
-        "filename": filename,
-        "bytes": bytes
-    };
+  Map<String, dynamic> toMap() {
+    return {"filename": filename, "bytes": bytes};
   }
 }

@@ -6,41 +6,36 @@ import 'package:nullsampler/src/features/sampler/data/service/i_sampler_service.
 import 'package:nullsampler/src/features/sampler/model/grid_model.dart';
 import 'package:nullsampler/src/features/sampler/model/sample_model.dart';
 
-class SqliteSamplerService implements ISamplerService
-{
+class SqliteSamplerService implements ISamplerService {
   @override
   Future<QueryResult<int>> saveSample(SampleModel sample) async {
     final db = await getDatabase();
     try {
-        int id = await db.insert(
-            "Sample",
-            sample.toMap()
-        );
+      int id = await db.insert("Sample", sample.toMap());
 
-        return QueryResult(wasSuccesful: true, content: id);
-    } catch(e) {
-        return QueryResult(wasSuccesful: false, message: e.toString());
+      return QueryResult(wasSuccesful: true, content: id);
+    } catch (e) {
+      return QueryResult(wasSuccesful: false, message: e.toString());
     } finally {
-        db.close();
+      db.close();
     }
   }
 
   @override
   Future<QueryResult<SampleModel>> loadSample(int id) async {
     final db = await getDatabase();
-    try{
+    try {
       var result = await db.query(
         "Sample",
         where: "idSample = ?",
-        whereArgs: [id]
+        whereArgs: [id],
       );
 
-      if(result.isEmpty)
-      {
+      if (result.isEmpty) {
         return QueryResult(
           wasSuccesful: true,
           content: null,
-          message: "Sample não encontrada"
+          message: "Sample não encontrada",
         );
       }
       var sample = result.first;
@@ -51,8 +46,9 @@ class SqliteSamplerService implements ISamplerService
       // não sei se é a única forma de fazer isso, mas eu vejo depois
       String bytesString = sample["bytes"].toString();
       List<String> bytesStringList = [];
-      for(int i=0; i<bytesString.length; i++)
-      { bytesStringList.add(bytesString[i]); }
+      for (int i = 0; i < bytesString.length; i++) {
+        bytesStringList.add(bytesString[i]);
+      }
       List<int> bytesIntList = bytesStringList.cast<int>();
 
       return QueryResult(
@@ -60,14 +56,13 @@ class SqliteSamplerService implements ISamplerService
         content: SampleModel(
           id: idSample,
           filename: filename,
-          bytes: Uint8List.fromList(bytesIntList) // aquela bizarrice ali em cima é pra fazer isso
-        )
+          bytes: Uint8List.fromList(
+            bytesIntList,
+          ), // aquela bizarrice ali em cima é pra fazer isso
+        ),
       );
-    } catch(e) {
-      return QueryResult(
-        wasSuccesful: false,
-        message: e.toString()
-      );
+    } catch (e) {
+      return QueryResult(wasSuccesful: false, message: e.toString());
     } finally {
       db.close();
     }
@@ -76,42 +71,34 @@ class SqliteSamplerService implements ISamplerService
   @override
   Future<QueryResult<List<SampleModel>>> listSamples() async {
     final db = await getDatabase();
-    try{
+    try {
       var results = await db.query(
         "Sample",
-        columns: ["idSample", "filename"] // melhor não carregar os bytes aqui
+        columns: ["idSample", "filename"], // melhor não carregar os bytes aqui
       );
 
-      if(results.isEmpty)
-      {
+      if (results.isEmpty) {
         return QueryResult(
           wasSuccesful: true,
           content: null,
-          message: "Não há nenhuma sample"
+          message: "Não há nenhuma sample",
         );
       }
 
       List<SampleModel> samples = [];
-      
-      for(var sample in results)
-      {
+
+      for (var sample in results) {
         samples.add(
           SampleModel(
             id: int.parse(sample["id"].toString()),
-            filename: sample["filename"].toString()
-          )
+            filename: sample["filename"].toString(),
+          ),
         );
       }
 
-      return QueryResult(
-        wasSuccesful: true,
-        content: samples
-      );
-    } catch(e) {
-      return QueryResult(
-        wasSuccesful: false,
-        message: e.toString()
-      );
+      return QueryResult(wasSuccesful: true, content: samples);
+    } catch (e) {
+      return QueryResult(wasSuccesful: false, message: e.toString());
     } finally {
       db.close();
     }
@@ -120,30 +107,23 @@ class SqliteSamplerService implements ISamplerService
   @override
   Future<QueryResult<String>> deleteSample(int id) async {
     final db = await getDatabase();
-    try{
+    try {
       var result = await db.delete(
         "Sample",
         where: "idSample = ?",
-        whereArgs: [id]
+        whereArgs: [id],
       );
-      
-      if(result == 0)
-      {
+
+      if (result == 0) {
         return QueryResult(
           wasSuccesful: true,
-          message: "Sample não encontrada"
+          message: "Sample não encontrada",
         );
       }
 
-      return QueryResult(
-        wasSuccesful: true,
-        message: "Sample excluída"
-      );
-    } catch(e) {
-      return QueryResult(
-        wasSuccesful: false,
-        message: e.toString()
-      );
+      return QueryResult(wasSuccesful: true, message: "Sample excluída");
+    } catch (e) {
+      return QueryResult(wasSuccesful: false, message: e.toString());
     } finally {
       db.close();
     }

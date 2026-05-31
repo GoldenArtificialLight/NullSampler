@@ -1,16 +1,14 @@
-
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 const String databaseName = "null_sampler.db";
 
-Future<Database> getDatabase() async
-{
-    return await openDatabase(
-        join(await getDatabasesPath(), databaseName),
-        version: 1,
-        onCreate:(db, version) async {
-            await db.execute("""
+Future<Database> getDatabase() async {
+  return await openDatabase(
+    join(await getDatabasesPath(), databaseName),
+    version: 1,
+    onCreate: (db, version) async {
+      await db.execute("""
                 CREATE TABLE Tile (
                     idTile INTEGER PRIMARY KEY NOT NULL,
                     posicao TEXT
@@ -31,7 +29,7 @@ Future<Database> getDatabase() async
                 );
             """);
 
-            await db.execute("""
+      await db.execute("""
                 INSERT INTO Tile VALUES
                 (1, "topLeft"),
                 (2, "topCenter"),
@@ -43,11 +41,10 @@ Future<Database> getDatabase() async
                 (8, "bottomCenter"),
                 (9, "bottomRight");
             """);
-        },
-    );
+    },
+  );
 }
 
-Future<void> cleanDatabase() async
-{
-    await deleteDatabase(join(await getDatabasesPath(), databaseName));
+Future<void> cleanDatabase() async {
+  await deleteDatabase(join(await getDatabasesPath(), databaseName));
 }
